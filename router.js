@@ -28,8 +28,10 @@ router.post('/login', [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.render('login', { error: errors.errors[0].msg, old: {...req.body } });
+        return;
     }
-});
 
+    res.redirect('/');
+});
 
 module.exports = router;
