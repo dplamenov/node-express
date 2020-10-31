@@ -3,6 +3,11 @@ const router = express.Router();
 
 const { body, validationResult } = require('express-validator');
 
+router.use((req, res, next) => {
+    res.locals.layout = false;
+    next();
+});
+
 router.get('/', (req, res) => {
     res.render('home');
 });

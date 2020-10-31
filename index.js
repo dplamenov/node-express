@@ -3,7 +3,6 @@ const hbs = require('express-handlebars');
 
 const router = require('./router');
 
-require('./config/express')();
 
 const app = express();
 app.set('view engine', '.hbs');
@@ -13,4 +12,4 @@ app.use(express.urlencoded({ extended: false }));
 app.use(router);
 
 
-app.listen(3000);
+app.listen(3001);
