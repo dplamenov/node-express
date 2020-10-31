@@ -21,19 +21,15 @@ router.get('/', (req, res) => {
 router.get('/login', showView('login'));
 router.get('/register', showView('register'));
 
-router.post('/', [
-    body('data').isLength({ min: 3 }).withMessage('data must be at least 3 chars long'),
+router.post('/login', [
+    body('email').isEmail().withMessage('email is not valid'),
+    body('password').isLength({ min: 8 }).withMessage('password must be at least 8 chars')
 ], (req, res) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
-        return res.render('home', { errors: errors.array() });
+        res.render('login', { error: errors.errors[0].msg, old: {...req.body } });
     }
-
-    const { data } = req.body;
-    console.log(data);
-
-    res.redirect('/');
 });
+
 
 module.exports = router;
