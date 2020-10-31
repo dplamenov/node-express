@@ -34,4 +34,17 @@ router.post('/login', [
     res.redirect('/');
 });
 
+router.post('/register', [
+    body('email').isEmail().withMessage('email is not valid'),
+    body('password').isLength({ min: 8 }).withMessage('password must be at least 8 chars')
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.render('register', { error: errors.errors[0].msg, old: {...req.body } });
+        return;
+    }
+
+    res.redirect('/');
+});
+
 module.exports = router;
