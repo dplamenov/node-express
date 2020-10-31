@@ -36,7 +36,8 @@ router.post('/login', [
 
 router.post('/register', [
     body('email').isEmail().withMessage('email is not valid'),
-    body('password').isLength({ min: 8 }).withMessage('password must be at least 8 chars')
+    body('password').isLength({ min: 8 }).withMessage('password must be at least 8 chars'),
+    body('repeatPassword').custom((repeat, { req }) => { return repeat === req.body.password }).withMessage('repeat password dont match password')
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
